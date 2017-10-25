@@ -1,0 +1,6 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/
+mongodb-connect.js
+mongodb-connect.js.map
+mongodb-connect.ts
+node_modules/
