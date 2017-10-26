@@ -4,12 +4,15 @@
 import express = require('express');
 import bodyParser = require('body-parser')
 import mongoose = require('mongoose');
+import {ObjectID} from "mongodb";
 
 import Todo = require('./models/todo');
 import  User = require('./models/user');
 
 let app = express();
 app.use(bodyParser.json());
+
+let port = process.env.PORT || 3000;
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/ToDoApp');
@@ -35,4 +38,23 @@ app.get('/todos', (req, res) => {
     })
 });
 
-app.listen(3000, () => console.log('Started on port 3000'));
+app.get('/todos/:id', (req, res) => {
+    let id = req.params.id;
+    console.log(req.params.id);
+
+    if (!ObjectID.isValid(id)){
+        return res.status(404).send("not a valid id");
+    } else {
+        console.log('Id is valid');
+    }
+
+    Todo.findById(id).then((todos) => {
+        res.send({todos});
+    }, (e) => {
+        res.status(400).send(e);
+    })
+
+
+});
+
+app.listen(port, () => console.log(`Started on port ${port}`));
