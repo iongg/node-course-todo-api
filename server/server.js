@@ -12,7 +12,7 @@ var app = express();
 app.use(bodyParser.json());
 var port = process.env.PORT || 3000;
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/ToDoApp');
+mongoose.connect('mongodb://john:sakura123@ds233895.mlab.com:33895/mongo-node-udemy');
 app.post('/todos', function (req, res) {
     console.log(req.body);
     var todo = new Todo({
